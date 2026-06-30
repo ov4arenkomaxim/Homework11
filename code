@@ -1,0 +1,53 @@
+class Alphabet:
+    def __init__(self, lang, letters):
+        self.lang = lang
+        self.letters = letters  
+
+    def print(self):
+        """Виводить літери алфавіту на екран"""
+        print("".join(self.letters) if isinstance(self.letters, list) else self.letters)
+
+    def letters_num(self):
+        """Повертає кількість літер у алфавіті"""
+        if isinstance(self.letters, list):
+            return len(self.letters)
+        return len(self.letters)
+
+
+class EngAlphabet(Alphabet):
+    #Приватний статичний атрибут
+    _letters_num = 26
+
+    def __init__(self):
+        # Викликаємо конструктор
+        super().__init__("En", "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+    def s_en_letter(self, letter):
+        """Перевіряє, чи належить літера англійському алфавіту"""
+        if not letter or len(letter) != 1:
+            return False
+        # Перевіряємо без урахування регістру
+        return letter.upper() in self.letters or letter.lower() in self.letters
+
+    def letters_num(self):
+        """Перевизначений метод — повертає статичне значення"""
+        return EngAlphabet._letters_num
+
+    @staticmethod
+    def example():
+        """Повертає приклад тексту англійською мовою"""
+        return "The quick brown fox jumps over the lazy dog."
+# Приклад класів
+if __name__ == "__main__":
+    print("=== Клас Alphabet ===")
+    alphabet = Alphabet("Ua", "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ")
+    alphabet.print()
+    print("Кількість літер:", alphabet.letters_num())
+
+    print("\n=== Клас EngAlphabet ===")
+    eng = EngAlphabet()
+    eng.print()
+    print("Кількість літер:", eng.letters_num())
+    print("Чи є 'A' в англійському алфавіті?", eng.s_en_letter("A"))
+    print("Чи є 'я' в англійському алфавіті?", eng.s_en_letter("я"))
+    print("Приклад тексту:", EngAlphabet.example())
